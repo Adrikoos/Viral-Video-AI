@@ -1,4 +1,1 @@
-export const dynamic="force-dynamic";
-export async function GET(){
-  return Response.json({ok:true,configured:Boolean(process.env.RUNWAYML_API_SECRET),provider:"runway",model:"seedance2_5",version:"4.0.0"});
-}
+export const dynamic="force-dynamic";export async function GET(){return Response.json({ok:true,configured:Boolean(process.env.WAN_WORKER_URL),provider:"Wan2.2 local/self-hosted",model:"Wan2.2-Animate-14B",version:"5.0.0"})}
