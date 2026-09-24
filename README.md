@@ -1,22 +1,22 @@
-# Viral Video AI — PRO
+# Viral Video AI — FREE / Wan2.2 Animate
 
-Production-oriented Next.js app using Runway Dev and Seedance 2.5 for reference-driven video generation.
+The app now targets **Wan-AI/Wan2.2-Animate-14B**, an Apache-2.0 open-source character animation/replacement model.
 
-## What it does
-- Upload a character/person image.
-- Provide a direct HTTPS reference-video URL.
-- Seedance 2.5 video-to-video uses the video as motion/composition guidance and the image as a character reference.
-- Polls generation status and displays the finished video.
-- API credentials remain server-side.
+## Modes
+- **Animation** — a character from the reference image mimics the motion and expressions in the input video.
+- **Replacement** — replaces the character in the source video.
 
-## Deploy on Vercel
-1. Import this GitHub repository.
-2. In **Project → Settings → Environment Variables**, add `RUNWAYML_API_SECRET`.
-3. Create the key in the Runway developer portal.
-4. Redeploy.
+## Important: “free” means self-hosted
+The model weights/code are free, but a 14B video model still needs substantial GPU compute. Vercel hosts the Next.js UI/API proxy only; it cannot run the model itself.
 
-## Input notes
-The image is sent as a data URI and is limited to 5 MB by the UI. The reference video must be a direct public HTTPS MP4/MOV/WebM URL. Seedance 2.5 reference/input video should be at least 480p.
+The official Wan workflow preprocesses the uploaded image/video and then runs `generate.py --task animate-14B`. Model files are very large, so do not commit weights to this repository.
 
-## Security
-Never commit your Runway API key. `.env` and `.env.local` are ignored by Git.
+## Worker contract
+Set `WAN_WORKER_URL` to a GPU service exposing:
+- `POST /generate` — multipart fields: `image`, `video`, `mode`
+- `GET /status/{id}`
+
+Optional bearer authentication: `WAN_WORKER_TOKEN`.
+
+## Model
+Official model: `Wan-AI/Wan2.2-Animate-14B` on Hugging Face.
