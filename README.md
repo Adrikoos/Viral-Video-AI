@@ -1,28 +1,22 @@
-# Viral Video AI — PRO 3.0
+# Viral Video AI — PRO
 
-Vercel-ready Next.js application for creating an AI video from a character image and a reference-video URL.
+Production-oriented Next.js app using Runway Dev and Seedance 2.5 for reference-driven video generation.
 
-## Current status
-The web application, UI and same-origin server API are implemented. To perform real video generation, connect a supported AI video provider in Vercel with server-side environment variables.
+## What it does
+- Upload a character/person image.
+- Provide a direct HTTPS reference-video URL.
+- Seedance 2.5 video-to-video uses the video as motion/composition guidance and the image as a character reference.
+- Polls generation status and displays the finished video.
+- API credentials remain server-side.
 
-## Vercel deployment
-Import this GitHub repository into Vercel. In Project → Settings → Environment Variables add:
-- `VIDEO_API_URL`
-- `VIDEO_API_KEY`
+## Deploy on Vercel
+1. Import this GitHub repository.
+2. In **Project → Settings → Environment Variables**, add `RUNWAYML_API_SECRET`.
+3. Create the key in the Runway developer portal.
+4. Redeploy.
 
-Then redeploy.
+## Input notes
+The image is sent as a data URI and is limited to 5 MB by the UI. The reference video must be a direct public HTTPS MP4/MOV/WebM URL. Seedance 2.5 reference/input video should be at least 480p.
 
-## Local development
-1. Run `npm install`
-2. Copy `.env.example` to `.env.local`
-3. Add your provider endpoint and API key
-4. Run `npm run dev`
-5. Open `http://localhost:3000`
-
-## Reference videos
-The current adapter accepts direct public `.mp4`, `.mov` and `.webm` URLs. TikTok, Instagram Reels and YouTube page URLs are not direct media files.
-
-## Architecture
-The browser calls only `/api/health` and `/api/generate`. Provider credentials remain server-side. The provider-specific integration is isolated in `app/api/generate/route.js`.
-
-Never commit real API keys to GitHub.
+## Security
+Never commit your Runway API key. `.env` and `.env.local` are ignored by Git.
